@@ -62,8 +62,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text('Funkollector'),
-        backgroundColor: Colors.pink,
+        backgroundColor: Colors.deepPurpleAccent,
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
@@ -75,7 +76,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             title: Text('Home'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add_circle),
+            icon: Icon(Icons.accessibility_new),
             title: Text('Funkos'),
           ),
           BottomNavigationBarItem(
@@ -86,6 +87,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.deepPurpleAccent,
         onTap: _onItemTapped,
+      ),
+      floatingActionButton: new FloatingActionButton(
+        onPressed: null,
+        tooltip: 'Add_Funko',
+        backgroundColor: Colors.deepPurpleAccent,
+        child: new Icon(Icons.add),
       ),
     );
   }

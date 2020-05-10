@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutterfunkopop/services/userService.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 abstract class BaseAuth {
   Future<String> signIn(String email, String password);
@@ -21,10 +24,15 @@ abstract class BaseAuth {
   Future<void> deleteUser();
 
   Future<void> sendPasswordResetMail(String email);
+
+  Future<String> getCurrentRole();
 }
 
 class Auth implements BaseAuth {
+
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final UserService userService = UserService();
+  final Firestore db = Firestore.instance;
 
   Future<String> signIn(String email, String password) async {
     FirebaseUser user = (await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password)).user;
@@ -34,6 +42,7 @@ class Auth implements BaseAuth {
   Future<String> signUp(String email, String password) async {
     FirebaseUser user = (await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password)).user;
+    userService.createUser(user.uid, email, " ", "user");
     return user.uid;
   }
 
@@ -95,4 +104,10 @@ class Auth implements BaseAuth {
     return null;
   }
 
+  Future<String> getCurrentRole() async{
+    FirebaseUser user = await _firebaseAuth.currentUser();
+    var role_aux = await db.collection('Users').document(user.uid.toString()).get();
+    String role = role_aux.data['role'].toString();
+    return role;
+  }
 }

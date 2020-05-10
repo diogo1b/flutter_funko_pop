@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutterfunkopop/Services/authentification.dart';
+import 'package:flutterfunkopop/services/userService.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.auth, this.userId, this.onSignedOut})
+  HomePage({Key key, this.auth, this.userId, this.onSignedOut, this.admin})
       : super(key: key);
 
   final BaseAuth auth;
+  final UserService userService = UserService();
   final VoidCallback onSignedOut;
   final String userId;
+  final bool admin ;
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -15,6 +19,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
+
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
@@ -74,12 +79,16 @@ class _HomePageState extends State<HomePage> {
         selectedItemColor: Colors.deepPurpleAccent,
         onTap: _onItemTapped,
       ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: null,
-        tooltip: 'Add_Funko',
-        backgroundColor: Colors.deepPurpleAccent,
-        child: new Icon(Icons.add),
-      ),
+
+      floatingActionButton: new Visibility(
+        visible: widget.admin,
+        child : new FloatingActionButton(
+          onPressed: null,
+          tooltip: 'Add_Funko',
+          backgroundColor: Colors.deepPurpleAccent,
+          child: new Icon(Icons.add),
+        ),
+      )
     );
   }
 

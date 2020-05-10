@@ -29,6 +29,8 @@ dev_dependencies:
     sdk: flutter
 
   flutter_launcher_icons: ^0.7.0
+  firebase_auth: ^0.9.0
+
 
 flutter_icons:
   image_path: "assets/launcher/icon.png"
@@ -40,6 +42,9 @@ flutter_icons:
 
 # The following section is specific to Flutter.
 flutter:
+
+  assets:
+    - assets/images/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

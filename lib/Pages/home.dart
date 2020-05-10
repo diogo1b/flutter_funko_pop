@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutterfunkopop/Services/authentification.dart';
 
-class HomeWidget extends StatefulWidget {
-  HomeWidget({Key key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  HomePage({Key key, this.auth, this.userId, this.onSignedOut})
+      : super(key: key);
+
+  final BaseAuth auth;
+  final VoidCallback onSignedOut;
+  final String userId;
 
   @override
-  _HomeWidgetState createState() => _HomeWidgetState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _HomeWidgetState extends State<HomeWidget> {
+class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -39,6 +45,12 @@ class _HomeWidgetState extends State<HomeWidget> {
         centerTitle: true,
         title: const Text('Funkollector'),
         backgroundColor: Colors.deepPurpleAccent,
+        actions: <Widget>[
+          new FlatButton(
+            child: new Icon(Icons.exit_to_app, color: Colors.white),
+            onPressed: _signOut,
+          )
+        ],
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
@@ -69,5 +81,14 @@ class _HomeWidgetState extends State<HomeWidget> {
         child: new Icon(Icons.add),
       ),
     );
+  }
+
+  _signOut() async {
+    try {
+      await widget.auth.signOut();
+      widget.onSignedOut();
+    } catch (e) {
+      print(e);
+    }
   }
 }

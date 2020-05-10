@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "966759221343",
+    "firebase_url": "https://funkollector-4b7c4.firebaseio.com",
+    "project_id": "funkollector-4b7c4",
+    "storage_bucket": "funkollector-4b7c4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:966759221343:android:bbadf157cf25e8426b33ea",
+        "android_client_info": {
+          "package_name": "com.imc.flutterfunkopop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "966759221343-mk1od6pjfc9casms2hpol3ifprkdv0r5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFEuQZ9Oty8VYkIfBIwF7PHc6NkQJj7aw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "966759221343-mk1od6pjfc9casms2hpol3ifprkdv0r5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

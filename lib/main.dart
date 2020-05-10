@@ -10,6 +10,8 @@
 // bar items. The first one is selected.](https://flutter.github.io/assets-for-api-docs/assets/material/bottom_navigation_bar.png)
 
 import 'package:flutter/material.dart';
+import 'package:flutterfunkopop/Pages/root_page.dart';
+import 'package:flutterfunkopop/Services/authentification.dart';
 
 import 'Pages/home.dart';
 
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: _title,
-      home: HomeWidget(),
+      home: new RootPage(auth: new Auth(),),
     );
   }
 }

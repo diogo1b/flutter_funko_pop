@@ -20,7 +20,8 @@ class _FunkosPageState extends State<FunkosPage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Center(
-          child: Text('Funko Page'),
+          child:
+            Text('Funko Page'),
         ),
       ),
     );

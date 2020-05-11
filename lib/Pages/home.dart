@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterfunkopop/Pages/Funkos/funko_create.dart';
 import 'file:///C:/Users/Diogo/Documents/flutter_funko_pop/lib/Pages/Funko%20Lists/funkos_list_page.dart';
 import 'file:///C:/Users/Diogo/Documents/flutter_funko_pop/lib/Pages/Funkos/funkos_page.dart';
 import 'file:///C:/Users/Diogo/Documents/flutter_funko_pop/lib/Pages/Profile/profile_page.dart';
@@ -90,7 +91,14 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: new Visibility(
         visible: widget.admin,
         child : new FloatingActionButton(
-          onPressed: null,
+          onPressed: (){
+            print("clicked");
+            Navigator.of(context)
+                .push(MaterialPageRoute(
+              builder: (BuildContext context) => FormScreen(),
+            ));
+          },
+
           tooltip: 'Add_Funko',
           backgroundColor: Colors.deepPurpleAccent,
           child: new Icon(Icons.add),

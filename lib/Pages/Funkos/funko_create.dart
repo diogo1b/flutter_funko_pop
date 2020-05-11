@@ -147,14 +147,20 @@ class FormScreenState extends State<FormScreen> {
               SizedBox(height: 15.0),
               RaisedButton(
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0),
+                    borderRadius: BorderRadius.circular(12.0),
                 ),
                 child: Text(
                   'Submit',
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
                 color: Colors.deepPurpleAccent,
-
+                onPressed: () {
+                  if (!_formKey.currentState.validate()) {
+                    return;
+                  }
+                  _formKey.currentState.save();
+                  _saveFunko();
+                },
               )
             ],
           ),

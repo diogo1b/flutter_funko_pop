@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
             title: Text('Funkos'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
+            icon: Icon(Icons.person),
             title: Text('Profile'),
           ),
         ],

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterfunkopop/Services/authentification.dart';
 
 import 'home.dart';
-import 'login_signup_page.dart';
+import 'Profile/login_signup_page.dart';
 
 class RootPage extends StatefulWidget {
   RootPage({this.auth});

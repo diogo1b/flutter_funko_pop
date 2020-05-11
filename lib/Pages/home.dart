@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutterfunkopop/Pages/funkos_list_page.dart';
-import 'package:flutterfunkopop/Pages/funkos_page.dart';
-import 'package:flutterfunkopop/Pages/profile_page.dart';
+import 'file:///C:/Users/Diogo/Documents/flutter_funko_pop/lib/Pages/Funko%20Lists/funkos_list_page.dart';
+import 'file:///C:/Users/Diogo/Documents/flutter_funko_pop/lib/Pages/Funkos/funkos_page.dart';
+import 'file:///C:/Users/Diogo/Documents/flutter_funko_pop/lib/Pages/Profile/profile_page.dart';
 import 'package:flutterfunkopop/Services/authentification.dart';
 import 'package:flutterfunkopop/Services/userService.dart';
 import 'package:fluttertoast/fluttertoast.dart';

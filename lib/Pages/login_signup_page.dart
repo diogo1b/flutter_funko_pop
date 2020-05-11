@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutterfunkopop/Services/authentification.dart';
-import 'package:flutterfunkopop/services/userService.dart';
 
 class LoginSignUpPage extends StatefulWidget {
   LoginSignUpPage({this.auth, this.onSignedIn});

@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'authentification.dart';
 
 abstract class _UserService {
-  Future<void> createUser(String key, String email, String name, String role);
+  Future<void> createUser(String key, String email, String name, String role, String image);
 }
 
 class UserService implements _UserService {
@@ -12,8 +12,8 @@ class UserService implements _UserService {
   final Firestore db = Firestore.instance;
 
   @override
-  Future<void> createUser(String key, String email, String name, String role) async {
-    await db.collection('Users').document(key).setData({'email' : email, 'name' : name, 'role' : role});
+  Future<void> createUser(String key, String email, String name, String role, String image) async {
+    await db.collection('Users').document(key).setData({'email' : email, 'name' : name, 'role' : role, 'image' : image});
     return null;
   }
 

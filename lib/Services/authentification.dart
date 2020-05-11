@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutterfunkopop/services/userService.dart';
+import 'package:flutterfunkopop/Services/userService.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 abstract class BaseAuth {
@@ -42,7 +42,7 @@ class Auth implements BaseAuth {
   Future<String> signUp(String email, String password) async {
     FirebaseUser user = (await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password)).user;
-    userService.createUser(user.uid, email, " ", "user");
+    userService.createUser(user.uid, email, " ", "user", "");
     return user.uid;
   }
 

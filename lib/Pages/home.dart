@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutterfunkopop/Pages/funkos_list_page.dart';
+import 'package:flutterfunkopop/Pages/funkos_page.dart';
+import 'package:flutterfunkopop/Pages/profile_page.dart';
 import 'package:flutterfunkopop/Services/authentification.dart';
-import 'package:flutterfunkopop/services/userService.dart';
+import 'package:flutterfunkopop/Services/userService.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,19 +23,25 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
+  final _pageOptions = [
+    FunkosListPage(),
+    FunkosPage(),
+    ProfilePage(),
+  ];
+
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
-      'Index 0: Lists',
+      'Error al cargar la página principal',
       style: optionStyle,
     ),
     Text(
-      'Index 1: Create2',
+      'Erro al cargar la página de funkos',
       style: optionStyle,
     ),
     Text(
-      'Profile',
+      'Error al cargar el perfil',
       style: optionStyle,
     ),
   ];
@@ -57,9 +66,7 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+      body: _pageOptions[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

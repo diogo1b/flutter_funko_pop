@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutterfunkopop/Pages/Funkos/funko_create.dart';
-import 'file:///C:/Users/Diogo/Documents/flutter_funko_pop/lib/Pages/Funko%20Lists/funkos_list_page.dart';
-import 'file:///C:/Users/Diogo/Documents/flutter_funko_pop/lib/Pages/Funkos/funkos_page.dart';
-import 'file:///C:/Users/Diogo/Documents/flutter_funko_pop/lib/Pages/Profile/profile_page.dart';
 import 'package:flutterfunkopop/Services/authentification.dart';
 import 'package:flutterfunkopop/Services/userService.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'Funko Lists/funkos_list_page.dart';
+import 'Funkos/funkos_page.dart';
+import 'Profile/profile_page.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.auth, this.userId, this.onSignedOut, this.admin})

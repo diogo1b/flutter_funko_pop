@@ -1,25 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfunkopop/Pages/Funkos/funko_show.dart';
 import 'package:flutterfunkopop/models/UserList.dart';
 import 'package:flutterfunkopop/models/funko.dart';
 import 'package:flutterfunkopop/models/user.dart';
 
-import 'funko_create.dart';
-import 'funko_show.dart';
-
-class FunkosPage extends StatefulWidget {
-  FunkosPage(this.admin);
-
-  final bool admin;
+class FunkoListShow extends StatefulWidget {
+  FunkoListShow(this.listId);
+  final String listId;
 
   @override
-  State<StatefulWidget> createState() => new _FunkosPageState();
+  State<StatefulWidget> createState() {
+    return _FunkoListShowState();
+  }
 }
 
-class _FunkosPageState extends State<FunkosPage> {
+class _FunkoListShowState extends State<FunkoListShow> {
 
   List<Funko> funkoList = [
-    Funko("id","name", "number", "upc", "sticker", "this.category", "this.brand"),
+    Funko("1", "name", "number", "upc", "sticker", "this.category", "this.brand")
   ];
 
   @override
@@ -30,33 +29,24 @@ class _FunkosPageState extends State<FunkosPage> {
   @override
   Widget build(BuildContext context) {
     if(funkoList.length != 0) {
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-            floatingActionButton: _addButton(),
+      return Scaffold(
+            appBar: AppBar(
+                centerTitle: true,
+                title: const Text('Funkollector'),
+                backgroundColor: Colors.deepPurpleAccent
+            ),
             body: _list()
-        ),
       );
     }else {
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          floatingActionButton: _addButton(),
+      return Scaffold(
+          appBar: AppBar(
+              centerTitle: true,
+              title: const Text('Funkollector'),
+              backgroundColor: Colors.deepPurpleAccent
+          ),
           body: _noList(),
-        ),
-      );
+        );
     }
-  }
-
-  Widget _addButton() {
-    return new FloatingActionButton(
-      onPressed: (){
-        _createFunkoPage();
-      },
-      tooltip: 'Add_Funko_List',
-      backgroundColor: Colors.deepPurpleAccent,
-      child: new Icon(Icons.add),
-    );
   }
 
   Widget _list() {
@@ -81,19 +71,20 @@ class _FunkosPageState extends State<FunkosPage> {
                           ),
                         ),
                         title: Text(
-                            funkoList.name,
-                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                          funkoList.name,
+                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                         ),
-                      subtitle: Row(
-                        children: <Widget>[
-                          Icon(Icons.linear_scale, color: Colors.deepPurpleAccent),
-                          Text(funkoList.number, style: TextStyle(color: Colors.black)),
-                        ],
-                      ),
-                      trailing: (
-                          Icon(Icons.keyboard_arrow_right, color: Colors.black, size: 30.0)
-                      ),
-                      onTap: ()=> _showFunko(funkoList.id)
+                        subtitle: Row(
+                          children: <Widget>[
+                            Icon(Icons.linear_scale, color: Colors.deepPurpleAccent),
+                            Text(funkoList.number, style: TextStyle(color: Colors.black)),
+                          ],
+                        ),
+                        trailing: (
+                            Icon(Icons.keyboard_arrow_right, color: Colors.black, size: 30.0)
+                        ),
+                        onTap: ()=> _showFunko(funkoList.id),
+                        onLongPress: ()=> _removeFunko(funkoList.id),
                     )
                   ],
                 ),
@@ -121,11 +112,9 @@ class _FunkosPageState extends State<FunkosPage> {
     );
   }
 
-  _createFunkoPage() {
-    Navigator.of(context)
-        .push(MaterialPageRoute(
-      builder: (BuildContext context) => FormScreen(),
-    ));
+  _removeFunko(String id) {
+    print("remove" + id);
+    (context as Element).reassemble();
   }
 
   _showFunko(String id) {
@@ -134,4 +123,5 @@ class _FunkosPageState extends State<FunkosPage> {
       builder: (BuildContext context) => FunkoShowPage(id),
     ));
   }
+
 }

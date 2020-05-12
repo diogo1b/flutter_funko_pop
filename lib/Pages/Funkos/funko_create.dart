@@ -150,7 +150,7 @@ class FormScreenState extends State<FormScreen> {
                     borderRadius: BorderRadius.circular(12.0),
                 ),
                 child: Text(
-                  'Submit',
+                  'Add Funko',
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
                 color: Colors.deepPurpleAccent,

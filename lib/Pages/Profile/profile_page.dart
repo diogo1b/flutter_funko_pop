@@ -70,6 +70,10 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget _showBody(){
     return new Center(
         child: new Container(
+          margin: const EdgeInsets.all(25.0),
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.deepPurpleAccent, width: 2.0)
+          ),
             padding: const EdgeInsets.all(30.0),
               child: new Column(
                 children: <Widget>[

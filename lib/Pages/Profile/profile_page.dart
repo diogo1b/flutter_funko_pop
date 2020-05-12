@@ -6,6 +6,7 @@ import 'package:flutterfunkopop/Pages/Profile/update_profile_page.dart';
 import 'package:flutterfunkopop/Services/authentification.dart';
 import 'package:flutterfunkopop/models/user.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:share/share.dart';
 
 class ProfilePage extends StatefulWidget {
 
@@ -162,6 +163,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   share() {
     final String title = "Funkollector";
-    //Share.share(title, subject: "Esta aplicación es para ti !!!! Prueba este nuevo sistema para llevar el registro de tus funkos favoritos !!!!!");
+    Share.share(title, subject: "Esta aplicación es para ti !!!! Prueba este nuevo sistema para llevar el registro de tus funkos favoritos !!!!!");
   }
 }

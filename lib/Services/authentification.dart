@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutterfunkopop/Services/userService.dart';
+import 'package:flutterfunkopop/models/user.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 abstract class BaseAuth {
@@ -26,6 +27,8 @@ abstract class BaseAuth {
   Future<void> sendPasswordResetMail(String email);
 
   Future<String> getCurrentRole();
+
+  Future<User> getCurrentUserComplete();
 }
 
 class Auth implements BaseAuth {
@@ -42,7 +45,7 @@ class Auth implements BaseAuth {
   Future<String> signUp(String email, String password) async {
     FirebaseUser user = (await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password)).user;
-    userService.createUser(user.uid, email, " ", "user", "");
+    userService.createUser(user.uid, email, "User", "user", "stan", "Im new !!!");
     return user.uid;
   }
 
@@ -110,4 +113,14 @@ class Auth implements BaseAuth {
     String role = role_aux.data['role'].toString();
     return role;
   }
+
+  Future<User> getCurrentUserComplete() async {
+    FirebaseUser user = await _firebaseAuth.currentUser();
+    var item_aux = await db.collection('Users').document(user.uid.toString()).get();
+    var date_aux = new DateTime.fromMicrosecondsSinceEpoch(item_aux['created_at'].seconds);
+    var date = date_aux.toString().split(" ");
+    User item = User(user.uid.toString(), item_aux['name'].toString(), item_aux['image'].toString(), item_aux['phrase'].toString(), item_aux['role'].toString(), date[0]);
+    return item;
+  }
+
 }

@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-
-import 'authentification.dart';
 
 abstract class _UserService {
-  Future<void> createUser(String key, String email, String name, String role, String image);
+  Future<void> createUser(String key, String email, String name, String role, String image, String phrase);
+  
+  Future<void> updateUser(String key, String name, String phrase, String image);
 }
 
 class UserService implements _UserService {
@@ -12,20 +11,14 @@ class UserService implements _UserService {
   final Firestore db = Firestore.instance;
 
   @override
-  Future<void> createUser(String key, String email, String name, String role, String image) async {
-    await db.collection('Users').document(key).setData({'email' : email, 'name' : name, 'role' : role, 'image' : image});
+  Future<void> createUser(String key, String email, String name, String role, String image, String phrase) async {
+    await db.collection('Users').document(key).setData({'email' : email, 'name' : name, 'role' : role, 'image' : image, 'phrase' : phrase, 'created_at' : Timestamp.now()});
     return null;
   }
-
+  
   @override
-  Future<void> Hola() {
-    Fluttertoast.showToast(
-        msg: "This is Center Short Toast",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        fontSize: 16.0
-    );
+  Future<void> updateUser(String key, String name, String phrase, String image) async {
+    await db.collection('Users').document(key).updateData({'name' : name , 'phrase' : phrase, 'image' : image});
     return null;
   }
 }

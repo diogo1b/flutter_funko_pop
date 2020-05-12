@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutterfunkopop/Pages/Funkos/funko_create.dart';
 import 'package:flutterfunkopop/Services/authentification.dart';
 import 'package:flutterfunkopop/Services/userService.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'Funko Lists/funkos_list_page.dart';
+import 'Funko_Lists/funkos_list_page.dart';
 import 'Funkos/funkos_page.dart';
 import 'Profile/profile_page.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.auth, this.userId, this.onSignedOut, this.admin})
+  HomePage({Key key, this.auth, this.onSignedOut, this.admin})
       : super(key: key);
 
   final BaseAuth auth;
   final UserService userService = UserService();
   final VoidCallback onSignedOut;
-  final String userId;
   final bool admin ;
 
   @override
@@ -26,7 +23,7 @@ class _HomePageState extends State<HomePage> {
 
   final _pageOptions = [
     FunkosListPage(),
-    FunkosPage(),
+    FunkosPage(false),
     ProfilePage(),
   ];
 
@@ -55,6 +52,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    _pageOptions[1] = FunkosPage(widget.admin);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -88,22 +86,7 @@ class _HomePageState extends State<HomePage> {
         onTap: _onItemTapped,
       ),
 
-      floatingActionButton: new Visibility(
-        visible: widget.admin,
-        child : new FloatingActionButton(
-          onPressed: (){
-            print("clicked");
-            Navigator.of(context)
-                .push(MaterialPageRoute(
-              builder: (BuildContext context) => FormScreen(),
-            ));
-          },
 
-          tooltip: 'Add_Funko',
-          backgroundColor: Colors.deepPurpleAccent,
-          child: new Icon(Icons.add),
-        ),
-      )
     );
   }
 

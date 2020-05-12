@@ -13,8 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutterfunkopop/Pages/root_page.dart';
 import 'package:flutterfunkopop/Services/authentification.dart';
 
-import 'Pages/home.dart';
-
 void main() => runApp(MyApp());
 
 /// This Widget is the main application widget.

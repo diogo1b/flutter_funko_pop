@@ -100,7 +100,6 @@ class _RootPageState extends State<RootPage> {
       case AuthStatus.LOGGED_IN:
         if (_userId.length > 0 && _userId != null) {
           return new HomePage(
-            userId: _userId,
             admin: _admin,
             auth: widget.auth,
             onSignedOut: _onSignedOut,

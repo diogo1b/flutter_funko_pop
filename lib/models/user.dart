@@ -1,8 +1,10 @@
 class User {
-  String key;
+  String uid;
   String name;
-  String email;
+  String image;
+  String phrase;
   String role;
+  String created_at;
 
-  User(this.key, this.name, this.email, this.role);
+  User(this.uid, this.name, this.image, this.phrase, this.role, this.created_at);
 }

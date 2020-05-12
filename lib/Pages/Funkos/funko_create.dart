@@ -180,10 +180,6 @@ class FormScreenState extends State<FormScreen> {
         textColor: Colors.white,
         fontSize: 16.0
     );
-    Navigator.of(context)
-        .push(MaterialPageRoute(
-      builder: (BuildContext context) => FormScreen(),
-    ))
-        .then((_) => _formKey.currentState.reset());
+    Navigator.pop(context);
   }
 }

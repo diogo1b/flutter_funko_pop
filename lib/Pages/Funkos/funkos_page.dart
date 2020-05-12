@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfunkopop/Services/funkoService.dart';
 import 'package:flutterfunkopop/models/UserList.dart';
 import 'package:flutterfunkopop/models/funko.dart';
 import 'package:flutterfunkopop/models/user.dart';
@@ -11,6 +14,7 @@ class FunkosPage extends StatefulWidget {
   FunkosPage(this.admin);
 
   final bool admin;
+  final FunkoService funkoService = FunkoService();
 
   @override
   State<StatefulWidget> createState() => new _FunkosPageState();
@@ -18,17 +22,29 @@ class FunkosPage extends StatefulWidget {
 
 class _FunkosPageState extends State<FunkosPage> {
 
-  List<Funko> funkoList = [
-    Funko("id","name", "number", "upc", "sticker", "this.category", "this.brand"),
-  ];
+  List<Funko> funkoList = [];
 
   @override
   void initState() {
     super.initState();
+    widget.funkoService.getFunkos().then((_funkoList) {
+      setState(() {
+        funkoList = _funkoList;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    /*
+    Timer.periodic(Duration(seconds: 3), (Timer t) =>
+        widget.funkoService.getFunkos().then((_funkoList) {
+          setState(() {
+            funkoList = _funkoList;
+          });
+        })
+    );
+     */
     if(funkoList.length != 0) {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -93,7 +109,7 @@ class _FunkosPageState extends State<FunkosPage> {
                       trailing: (
                           Icon(Icons.keyboard_arrow_right, color: Colors.black, size: 30.0)
                       ),
-                      onTap: ()=> _showFunko(funkoList.id)
+                      onTap: ()=> _showFunko(funkoList)
                     )
                   ],
                 ),
@@ -128,10 +144,10 @@ class _FunkosPageState extends State<FunkosPage> {
     ));
   }
 
-  _showFunko(String id) {
+  _showFunko(Funko funko) {
     Navigator.of(context)
         .push(MaterialPageRoute(
-      builder: (BuildContext context) => FunkoShowPage(id),
+      builder: (BuildContext context) => FunkoShowPage(funko),
     ));
   }
 }

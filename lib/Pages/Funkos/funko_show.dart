@@ -5,8 +5,8 @@ import 'package:flutterfunkopop/models/funko.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class FunkoShowPage extends StatefulWidget {
-  FunkoShowPage(this.funkoId);
-  final String funkoId;
+  FunkoShowPage(this.funko);
+  final Funko funko;
 
   @override
   State<StatefulWidget> createState() {
@@ -24,7 +24,7 @@ class FunkoShowPageState extends State<FunkoShowPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: _AddToListButton(widget.funkoId),
+        floatingActionButton: _AddToListButton(widget.funko.id),
       appBar: AppBar(
           centerTitle: true,
           title: const Text('Funkollector'),
@@ -64,7 +64,7 @@ class FunkoShowPageState extends State<FunkoShowPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
-              funko.number ,
+              widget.funko.number ,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
           )
@@ -83,7 +83,7 @@ class FunkoShowPageState extends State<FunkoShowPage> {
               Container(
                 padding: const EdgeInsets.only(bottom: 8),
                 child: Text(
-                  funko.name,
+                  widget.funko.name,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 25
@@ -91,7 +91,7 @@ class FunkoShowPageState extends State<FunkoShowPage> {
                 ),
               ),
               Text(
-                'UPC : ' + funko.upc,
+                'UPC : ' + widget.funko.upc,
                 style: TextStyle(
                     color: Colors.grey[500],
                     fontSize: 16
@@ -102,7 +102,7 @@ class FunkoShowPageState extends State<FunkoShowPage> {
         ),
         /*3*/
         Text(
-          "Sticker",
+          widget.funko.sticker,
           style: TextStyle(
               fontSize: 13
           ),
@@ -134,13 +134,13 @@ class FunkoShowPageState extends State<FunkoShowPage> {
         children: <Widget>[
           ListTile(
             title: Text(
-              funko.brand,
+              widget.funko.brand,
               style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
             ),
             subtitle: Row(
               children: <Widget>[
                 Icon(Icons.linear_scale, color: Colors.deepPurpleAccent),
-                Text(funko.category, style: TextStyle(color: Colors.black)),
+                Text(widget.funko.category, style: TextStyle(color: Colors.black)),
               ],
             ),
           )

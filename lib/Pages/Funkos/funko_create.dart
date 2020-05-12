@@ -41,7 +41,7 @@ class FormScreenState extends State<FormScreen> {
     return TextFormField(
       decoration: InputDecoration(labelText: 'Number'),
       keyboardType: TextInputType.number,
-      maxLength: 10,
+      maxLength: 3,
       validator: (String value) {
         int number = int.tryParse(value);
         if (number == null || number <= 0) {

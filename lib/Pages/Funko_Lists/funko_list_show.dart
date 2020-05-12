@@ -83,7 +83,7 @@ class _FunkoListShowState extends State<FunkoListShow> {
                         trailing: (
                             Icon(Icons.keyboard_arrow_right, color: Colors.black, size: 30.0)
                         ),
-                        onTap: ()=> _showFunko(funkoList.id),
+                        onTap: ()=> _showFunko(funkoList),
                         onLongPress: ()=> _removeFunko(funkoList.id),
                     )
                   ],
@@ -117,10 +117,10 @@ class _FunkoListShowState extends State<FunkoListShow> {
     (context as Element).reassemble();
   }
 
-  _showFunko(String id) {
+  _showFunko(Funko funko) {
     Navigator.of(context)
         .push(MaterialPageRoute(
-      builder: (BuildContext context) => FunkoShowPage(id),
+      builder: (BuildContext context) => FunkoShowPage(funko),
     ));
   }
 

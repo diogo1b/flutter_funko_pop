@@ -182,7 +182,8 @@ class FunkoUpdatePageState extends State<FunkoUpdatePage> {
 
   _updateFunko() {
     print(widget.funko.id);
-    //funkoService.updateFunko(widget.funko.id, _name, _number, _upc, _sticker, _category, _brand, _image);
+    print(_name);
+    funkoService.updateFunko(widget.funko.id, _name, _number, _upc, _sticker, _category, _brand, _image);
     Fluttertoast.showToast(
         msg: "You hace updated a Funko!!!!!",
         toastLength: Toast.LENGTH_SHORT,

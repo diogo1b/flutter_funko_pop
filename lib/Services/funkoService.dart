@@ -39,7 +39,7 @@ class FunkoService implements _FunkoService {
     if(filter == "") {
       querySnapshot = await db.collection('Funkos').getDocuments();
     } else {
-      querySnapshot = await db.collection("Funkos").orderBy("name").startAt([filter]).endAt([filter+"\uf8ff"]).getDocuments();
+      querySnapshot = await db.collection("Funkos").orderBy("name").startAt([filter.toUpperCase()]).endAt([filter.toLowerCase()+"\uf8ff"]).getDocuments();
     }
 
     for (int i = 0; i < querySnapshot.documents.length; i++) {

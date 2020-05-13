@@ -6,6 +6,8 @@ abstract class _FunkoService {
   Future<void> createFunko(String name, String number, String upc, String sticker, String category, String brand, String image);
 
   Future<void>updateFunko(String id, String name, String number, String upc, String sticker, String category, String brand, String image);
+
+  Future<List>getFilteredFunkos(String filter);
 }
 
 class FunkoService implements _FunkoService {
@@ -22,6 +24,24 @@ class FunkoService implements _FunkoService {
     List<Funko> funkoList = [];
 
     QuerySnapshot querySnapshot = await db.collection('Funkos').getDocuments();
+    for (int i = 0; i < querySnapshot.documents.length; i++) {
+      var a = querySnapshot.documents[i];
+      var funko = Funko(a.documentID, a['name'], a['number'], a['upc'], a['sticker'], a['category'], a['brand'], a['image']);
+      funkoList.add(funko);
+    }
+    return funkoList;
+  }
+
+  Future<List>getFilteredFunkos(String filter) async {
+    List<Funko> funkoList = [];
+    QuerySnapshot querySnapshot = null;
+
+    if(filter == "") {
+      querySnapshot = await db.collection('Funkos').getDocuments();
+    } else {
+      querySnapshot = await db.collection("Funkos").orderBy("name").startAt([filter]).endAt([filter+"\uf8ff"]).getDocuments();
+    }
+
     for (int i = 0; i < querySnapshot.documents.length; i++) {
       var a = querySnapshot.documents[i];
       var funko = Funko(a.documentID, a['name'], a['number'], a['upc'], a['sticker'], a['category'], a['brand'], a['image']);

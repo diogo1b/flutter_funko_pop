@@ -24,6 +24,7 @@ class FunkosPage extends StatefulWidget {
 class _FunkosPageState extends State<FunkosPage> {
 
   List<Funko> funkoList = [];
+  String text_filter = "";
 
   @override
   void initState() {
@@ -41,6 +42,7 @@ class _FunkosPageState extends State<FunkosPage> {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
+          resizeToAvoidBottomPadding: false,
             floatingActionButton: _addButton(),
             body: _list()
         ),
@@ -49,6 +51,7 @@ class _FunkosPageState extends State<FunkosPage> {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
+          resizeToAvoidBottomPadding: false,
           floatingActionButton: _addButton(),
           body: _noList(),
         ),
@@ -70,6 +73,20 @@ class _FunkosPageState extends State<FunkosPage> {
   Widget _list() {
     return new Column(
       children: <Widget>[
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 15.0),
+          child: TextFormField(
+            initialValue: text_filter,
+            decoration:
+            InputDecoration(
+                icon: Icon(Icons.search)
+            ),
+            onChanged: (text) {
+              text_filter = text;
+              _filter();
+            },
+          ),
+        ),
         Expanded(
           child: ListView(
               children: funkoList
@@ -116,19 +133,36 @@ class _FunkosPageState extends State<FunkosPage> {
   }
 
   Widget _noList() {
-    return new Center(
-      child: Container(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 20.0),
-          child: CircleAvatar(
-            backgroundColor: Colors.transparent,
-            radius: 120.0,
-            child: Image.asset(
-              'assets/images/not_found.png',
+    return new Column(
+        children: <Widget>[
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: TextFormField(
+              autofocus: true,
+              initialValue: text_filter,
+              decoration:
+              InputDecoration(
+                  icon: Icon(Icons.search)
+              ),
+              onChanged: (text) {
+                text_filter = text;
+                _filter();
+              },
             ),
           ),
-        ),
-      ),
+          Container(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 20.0),
+              child: CircleAvatar(
+                backgroundColor: Colors.transparent,
+                radius: 120.0,
+                child: Image.asset(
+                  'assets/images/not_found.png',
+                ),
+              ),
+            ),
+          ),
+        ],
     );
   }
 
@@ -151,5 +185,14 @@ class _FunkosPageState extends State<FunkosPage> {
           .push(MaterialPageRoute(
         builder: (BuildContext context) => FunkoUpdatePage(funko),
       ));
+  }
+
+  _filter() {
+    print(text_filter);
+    widget.funkoService.getFilteredFunkos(text_filter).then((filteredfunkoList) {
+      setState(() {
+        funkoList = filteredfunkoList;
+      });
+    });
   }
 }

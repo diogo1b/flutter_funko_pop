@@ -62,19 +62,12 @@ class _FunkoListAddState extends State<FunkoListAdd> {
               children: userList
                   .map((UserList userList) => Card(
                 elevation: 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0.0),
+                ),
                 child: Column(
                   children: <Widget>[
                     ListTile(
-                      contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                      leading: Container(
-                        padding: EdgeInsets.only(right: 20.0),
-                        decoration: new BoxDecoration(
-                            border: new Border(
-                                right: new BorderSide(width: 1.0, color: Colors.black))),
-                        child: Image.asset(
-                          'assets/images/stan.png',
-                        ),
-                      ),
                       title: Text(
                         userList.name,
                         style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
@@ -86,7 +79,7 @@ class _FunkoListAddState extends State<FunkoListAdd> {
                         ],
                       ),
                       trailing: (
-                          Icon(Icons.add, color: Colors.black, size: 30.0)
+                          Icon(Icons.add, color: Colors.deepPurpleAccent, size: 30.0)
                       ),
                       onTap: ()=> _addFunko(userList.id),
                     )

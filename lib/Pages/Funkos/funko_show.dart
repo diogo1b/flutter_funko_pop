@@ -102,7 +102,9 @@ class FunkoShowPageState extends State<FunkoShowPage> {
         Text(
           widget.funko.sticker,
           style: TextStyle(
-              fontSize: 13
+              fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.orange[900],
           ),
         ),
       ],

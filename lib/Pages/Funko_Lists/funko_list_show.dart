@@ -138,5 +138,4 @@ class _FunkoListShowState extends State<FunkoListShow> {
       builder: (BuildContext context) => FunkoShowPage(funko),
     ));
   }
-
 }

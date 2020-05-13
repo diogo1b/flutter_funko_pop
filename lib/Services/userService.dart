@@ -70,7 +70,9 @@ class UserService implements _UserService {
 
     for (int i = 0; i < querySnapshot.documents.length; i++) {
       var a = querySnapshot.documents[i];
-      var funko = Funko(a.documentID, a['name'], a['number'], a['upc'], a['sticker'], a['category'], a['brand'], a['image']);
+      var funko_fb = await db.collection('Funkos').document(a.documentID).get();
+      var funko = Funko(funko_fb.documentID, funko_fb['name'], funko_fb['number'], funko_fb['upc'], funko_fb['sticker'], funko_fb['category'], funko_fb['brand'], a['image']);
+
       funkoList.add(funko);
     }
     return funkoList;
@@ -79,7 +81,7 @@ class UserService implements _UserService {
   @override
   Future<void>addToList(Funko funko, String list_id) async {
     FirebaseUser user = await _firebaseAuth.currentUser();
-    db.collection('Users').document(user.uid.toString()).collection('Lists').document(list_id).collection('Funkos').add({'name' : funko.name, 'number' : funko.number, 'upc' : funko.upc, 'sticker' : funko.sticker, 'category' : funko.category, 'brand' : funko.brand, 'image' : funko.image});
+    db.collection('Users').document(user.uid.toString()).collection('Lists').document(list_id).collection('Funkos').document(funko.id).setData({'funko_id' : funko.id});
   }
 
   @override

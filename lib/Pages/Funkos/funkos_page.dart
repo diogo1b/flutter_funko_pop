@@ -9,6 +9,7 @@ import 'package:flutterfunkopop/models/user.dart';
 
 import 'funko_create.dart';
 import 'funko_show.dart';
+import 'funko_update.dart';
 
 class FunkosPage extends StatefulWidget {
   FunkosPage(this.admin);
@@ -109,7 +110,12 @@ class _FunkosPageState extends State<FunkosPage> {
                       trailing: (
                           Icon(Icons.keyboard_arrow_right, color: Colors.black, size: 30.0)
                       ),
-                      onTap: ()=> _showFunko(funkoList)
+                      onTap: ()=> _showFunko(funkoList),
+                      onLongPress: (){
+                          if(widget.admin) {
+                            _updateFunko(funkoList);
+                          }
+                      }
                     )
                   ],
                 ),
@@ -149,5 +155,12 @@ class _FunkosPageState extends State<FunkosPage> {
         .push(MaterialPageRoute(
       builder: (BuildContext context) => FunkoShowPage(funko),
     ));
+  }
+
+  _updateFunko(Funko funko) {
+      Navigator.of(context)
+          .push(MaterialPageRoute(
+        builder: (BuildContext context) => FunkoUpdatePage(funko),
+      ));
   }
 }

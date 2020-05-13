@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutterfunkopop/Services/funkoService.dart';
+import 'package:flutterfunkopop/Services/imageStorageService.dart';
 import 'package:flutterfunkopop/models/funko.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 
 class FunkoUpdatePage extends StatefulWidget {
   FunkoUpdatePage(this.funko);
@@ -24,6 +26,7 @@ class FunkoUpdatePageState extends State<FunkoUpdatePage> {
 
   final FunkoService funkoService = FunkoService();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final CloudStorageService cloudStorageService = CloudStorageService();
 
   Widget _buildName() {
     return TextFormField(
@@ -135,6 +138,24 @@ class FunkoUpdatePageState extends State<FunkoUpdatePage> {
     );
   }
 
+  Widget _buildImage() {
+    return new GestureDetector(
+      onTap: ()=> _selectImage(),
+      child: Container(
+          height: 250,
+          decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(10)),
+          alignment: Alignment.center,
+          child:
+          widget.funko.image == "" && _image == ""?
+          Text('Tap to add an image',
+              style: TextStyle(color: Colors.grey[400]))
+              : Image.network(_image)
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,6 +176,7 @@ class FunkoUpdatePageState extends State<FunkoUpdatePage> {
               _buildSticker(),
               _buildCategory(),
               _buildBrand(),
+              _buildImage(),
               SizedBox(height: 15.0),
               RaisedButton(
                 shape: RoundedRectangleBorder(
@@ -183,6 +205,7 @@ class FunkoUpdatePageState extends State<FunkoUpdatePage> {
   _updateFunko() {
     print(widget.funko.id);
     print(_name);
+    print(_image);
     funkoService.updateFunko(widget.funko.id, _name, _number, _upc, _sticker, _category, _brand, _image);
     Fluttertoast.showToast(
         msg: "You hace updated a Funko!!!!!",
@@ -194,5 +217,13 @@ class FunkoUpdatePageState extends State<FunkoUpdatePage> {
         fontSize: 16.0
     );
     Navigator.pop(context);
+  }
+
+  _selectImage() async {
+    var file = await ImagePicker.pickImage(source: ImageSource.gallery);
+    var _image_aux = await cloudStorageService.uploadImage(imageUpload: file, title: "funko");
+    setState(() {
+      _image = _image_aux;
+    });
   }
 }

@@ -72,9 +72,7 @@ class _FunkoListShowState extends State<FunkoListShow> {
                           decoration: new BoxDecoration(
                               border: new Border(
                                   right: new BorderSide(width: 1.0, color: Colors.black))),
-                          child: Image.asset(
-                            'assets/images/stan.png',
-                          ),
+                          child: funkoList.image == null || funkoList.image == ""? Image.asset('assets/images/not_found.png') : Image.network(funkoList.image)
                         ),
                         title: Text(
                           funkoList.name,

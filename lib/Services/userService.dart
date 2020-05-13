@@ -71,7 +71,7 @@ class UserService implements _UserService {
     for (int i = 0; i < querySnapshot.documents.length; i++) {
       var a = querySnapshot.documents[i];
       var funko_fb = await db.collection('Funkos').document(a.documentID).get();
-      var funko = Funko(funko_fb.documentID, funko_fb['name'], funko_fb['number'], funko_fb['upc'], funko_fb['sticker'], funko_fb['category'], funko_fb['brand'], a['image']);
+      var funko = Funko(funko_fb.documentID, funko_fb['name'], funko_fb['number'], funko_fb['upc'], funko_fb['sticker'], funko_fb['category'], funko_fb['brand'], funko_fb['image']);
 
       funkoList.add(funko);
     }

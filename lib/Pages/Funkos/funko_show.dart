@@ -118,9 +118,7 @@ class FunkoShowPageState extends State<FunkoShowPage> {
         child: CircleAvatar(
           backgroundColor: Colors.transparent,
           radius: 120.0,
-          child: Image.asset(
-            'assets/images/'+'stan'+'.png',
-          ),
+            child: widget.funko.image == null || widget.funko.image == ""? Image.asset('assets/images/not_found.png') : Image.network(widget.funko.image)
         ),
       ),
     );

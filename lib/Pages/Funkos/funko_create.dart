@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutterfunkopop/Services/funkoService.dart';
+import 'package:flutterfunkopop/Services/imageStorageService.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 
 class FormScreen extends StatefulWidget {
   @override
@@ -19,6 +21,7 @@ class FormScreenState extends State<FormScreen> {
   String _image = "";
 
   final FunkoService funkoService = FunkoService();
+  final CloudStorageService cloudStorageService = CloudStorageService();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Widget _buildName() {
@@ -125,6 +128,24 @@ class FormScreenState extends State<FormScreen> {
     );
   }
 
+  Widget _buildImage() {
+    return new GestureDetector(
+      onTap: ()=> _selectImage(),
+      child: Container(
+        height: 250,
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(10)),
+        alignment: Alignment.center,
+        child:
+          _image == ""?
+            Text('Tap to add an image',
+            style: TextStyle(color: Colors.grey[400]))
+          : Image.network(_image)
+        ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,6 +166,7 @@ class FormScreenState extends State<FormScreen> {
               _buildSticker(),
               _buildCategory(),
               _buildBrand(),
+              _buildImage(),
               SizedBox(height: 15.0),
               RaisedButton(
                 shape: RoundedRectangleBorder(
@@ -182,5 +204,13 @@ class FormScreenState extends State<FormScreen> {
         fontSize: 16.0
     );
     Navigator.pop(context);
+  }
+
+  _selectImage() async {
+    var file = await ImagePicker.pickImage(source: ImageSource.gallery);
+    var _image_aux = await cloudStorageService.uploadImage(imageUpload: file, title: "funko");
+    setState(() {
+      _image = _image_aux;
+    });
   }
 }

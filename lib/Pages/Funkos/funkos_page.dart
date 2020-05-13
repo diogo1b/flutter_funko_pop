@@ -37,15 +37,6 @@ class _FunkosPageState extends State<FunkosPage> {
 
   @override
   Widget build(BuildContext context) {
-    /*
-    Timer.periodic(Duration(seconds: 3), (Timer t) =>
-        widget.funkoService.getFunkos().then((_funkoList) {
-          setState(() {
-            funkoList = _funkoList;
-          });
-        })
-    );
-     */
     if(funkoList.length != 0) {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -93,9 +84,7 @@ class _FunkosPageState extends State<FunkosPage> {
                           decoration: new BoxDecoration(
                               border: new Border(
                                   right: new BorderSide(width: 1.0, color: Colors.black))),
-                          child: Image.asset(
-                            'assets/images/stan.png',
-                          ),
+                          child : funkoList.image == ""? Image.asset('assets/images/not_found.png') : Image.network(funkoList.image),
                         ),
                         title: Text(
                             funkoList.name,

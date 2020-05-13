@@ -1,13 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfunkopop/Pages/Funkos/funko_show.dart';
+import 'package:flutterfunkopop/Services/userService.dart';
 import 'package:flutterfunkopop/models/UserList.dart';
 import 'package:flutterfunkopop/models/funko.dart';
 import 'package:flutterfunkopop/models/user.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class FunkoListShow extends StatefulWidget {
   FunkoListShow(this.listId);
   final String listId;
+  final UserService userService = UserService();
 
   @override
   State<StatefulWidget> createState() {
@@ -17,13 +20,16 @@ class FunkoListShow extends StatefulWidget {
 
 class _FunkoListShowState extends State<FunkoListShow> {
 
-  List<Funko> funkoList = [
-    Funko("1", "name", "number", "upc", "sticker", "this.category", "this.brand")
-  ];
+  List<Funko> funkoList = [];
 
   @override
   void initState() {
     super.initState();
+    widget.userService.getFunkosFromList(widget.listId).then((_funkoList) {
+      setState(() {
+        funkoList = _funkoList;
+      });
+    });
   }
 
   @override
@@ -112,8 +118,17 @@ class _FunkoListShowState extends State<FunkoListShow> {
     );
   }
 
-  _removeFunko(String id) {
-    print("remove" + id);
+  _removeFunko(String funko_id) {
+    widget.userService.removeFromList(funko_id , widget.listId);
+    Fluttertoast.showToast(
+        msg: "You have removed this funko !!!!!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.deepPurpleAccent,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
     (context as Element).reassemble();
   }
 

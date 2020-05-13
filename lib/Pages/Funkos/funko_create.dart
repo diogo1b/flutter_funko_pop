@@ -16,6 +16,7 @@ class FormScreenState extends State<FormScreen> {
   String _sticker;
   String _category;
   String _brand;
+  String _image = "";
 
   final FunkoService funkoService = FunkoService();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -170,9 +171,9 @@ class FormScreenState extends State<FormScreen> {
   }
 
   _saveFunko() {
-    funkoService.createFunko(_name, _number, _upc, _sticker, _category, _brand);
+    funkoService.createFunko(_name, _number, _upc, _sticker, _category, _brand, _image);
     Fluttertoast.showToast(
-        msg: "Tu funko se ha creado exitosamente !!!!!",
+        msg: "You hace created a new Funko!!!!!",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,

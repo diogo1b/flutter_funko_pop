@@ -1,13 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfunkopop/Services/funkoService.dart';
+import 'package:flutterfunkopop/Services/userService.dart';
 import 'package:flutterfunkopop/models/UserList.dart';
 import 'package:flutterfunkopop/models/funko.dart';
 import 'package:flutterfunkopop/models/user.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'funko_list_create.dart';
 import 'funko_list_show.dart';
 
 class UserListPage extends StatefulWidget {
+
+  final UserService userService = UserService();
 
   @override
   State<StatefulWidget> createState() => new _UserListPageState();
@@ -15,15 +20,16 @@ class UserListPage extends StatefulWidget {
 
 class _UserListPageState extends State<UserListPage> {
 
-  List<UserList> userLists = [
-    UserList("1" , "hola" , "adios"),
-    UserList("2" , "hola" , "adios"),    UserList("1" , "hola" , "adios"),    UserList("1" , "hola" , "adios"),    UserList("1" , "hola" , "adios"),    UserList("1" , "hola" , "adios"),    UserList("1" , "hola" , "adios"),
-
-  ];
+  List<UserList> userLists = [];
 
   @override
   void initState() {
     super.initState();
+    widget.userService.getUserLists().then((_userLists) {
+      setState(() {
+        userLists = _userLists;
+      });
+    });
   }
 
   @override
@@ -129,8 +135,17 @@ class _UserListPageState extends State<UserListPage> {
     ));
   }
 
-  _RemoveList(String id) {
-    print("remove " + id);
+  _RemoveList(String list_id) {
+    widget.userService.deleteList(list_id);
+    Fluttertoast.showToast(
+        msg: "You have removed your list !!!!!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.deepPurpleAccent,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
     (context as Element).reassemble();
   }
 }

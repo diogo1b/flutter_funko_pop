@@ -1,13 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfunkopop/Pages/Funkos/funko_show.dart';
+import 'package:flutterfunkopop/Services/userService.dart';
 import 'package:flutterfunkopop/models/UserList.dart';
 import 'package:flutterfunkopop/models/funko.dart';
 import 'package:flutterfunkopop/models/user.dart';
 
 class FunkoListAdd extends StatefulWidget {
-  FunkoListAdd(this.funkoId);
-  final String funkoId;
+  FunkoListAdd(this.funko);
+  final Funko funko;
+  final UserService userService = UserService();
 
   @override
   State<StatefulWidget> createState() {
@@ -17,18 +19,21 @@ class FunkoListAdd extends StatefulWidget {
 
 class _FunkoListAddState extends State<FunkoListAdd> {
 
-  List<Funko> funkoList = [
-    Funko("1", "name", "number", "upc", "sticker", "this.category", "this.brand")
-  ];
+  List<UserList> userList = [];
 
   @override
   void initState() {
     super.initState();
+    widget.userService.getUserLists().then((_funkoList) {
+      setState(() {
+        userList = _funkoList;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    if(funkoList.length != 0) {
+    if(userList.length != 0) {
       return Scaffold(
           appBar: AppBar(
               centerTitle: true,
@@ -54,8 +59,8 @@ class _FunkoListAddState extends State<FunkoListAdd> {
       children: <Widget>[
         Expanded(
           child: ListView(
-              children: funkoList
-                  .map((Funko funkoList) => Card(
+              children: userList
+                  .map((UserList userList) => Card(
                 elevation: 2,
                 child: Column(
                   children: <Widget>[
@@ -71,19 +76,19 @@ class _FunkoListAddState extends State<FunkoListAdd> {
                         ),
                       ),
                       title: Text(
-                        funkoList.name,
+                        userList.name,
                         style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                       ),
                       subtitle: Row(
                         children: <Widget>[
                           Icon(Icons.linear_scale, color: Colors.deepPurpleAccent),
-                          Text(funkoList.number, style: TextStyle(color: Colors.black)),
+                          Text(userList.description, style: TextStyle(color: Colors.black)),
                         ],
                       ),
                       trailing: (
                           Icon(Icons.add, color: Colors.black, size: 30.0)
                       ),
-                      onTap: ()=> _addFunko(funkoList.id),
+                      onTap: ()=> _addFunko(userList.id),
                     )
                   ],
                 ),
@@ -112,7 +117,7 @@ class _FunkoListAddState extends State<FunkoListAdd> {
   }
 
   _addFunko(String list_id) {
-    //widget.funkoId;
+    widget.userService.addToList(widget.funko , list_id);
     Navigator.pop(context);
   }
 

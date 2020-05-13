@@ -19,12 +19,10 @@ class FunkoShowPageState extends State<FunkoShowPage> {
   final FunkoService funkoService = FunkoService();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  Funko funko = Funko("id","name", "999", "upc", "sticker", "this.category", "this.brand");
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: _AddToListButton(widget.funko.id),
+        floatingActionButton: _AddToListButton(widget.funko),
       appBar: AppBar(
           centerTitle: true,
           title: const Text('Funkollector'),
@@ -149,12 +147,12 @@ class FunkoShowPageState extends State<FunkoShowPage> {
     );
   }
 
-  Widget _AddToListButton(String id) {
+  Widget _AddToListButton(Funko funko) {
     return new FloatingActionButton(
       onPressed: (){
         Navigator.of(context)
             .push(MaterialPageRoute(
-          builder: (BuildContext context) => FunkoListAdd(id),
+          builder: (BuildContext context) => FunkoListAdd(funko),
         ));
       },
       tooltip: 'Add_Funko_To_List',

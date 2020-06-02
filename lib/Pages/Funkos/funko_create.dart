@@ -174,13 +174,15 @@ class FormScreenState extends State<FormScreen> {
                   borderRadius: BorderRadius.circular(12.0),
                 ),
                 child: Text(
-                  'Add Funko',
+                  'Scan UPC',
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
                 color: Colors.deepPurpleAccent,
                 onPressed: () {
-                  _barscan();
+                  if (!_formKey.currentState.validate()) {
+                    return;
                   }
+                  _barscan();
                 },
               ),
               RaisedButton(
@@ -208,7 +210,7 @@ class FormScreenState extends State<FormScreen> {
   }
 
 class _barscan {
-  
+
 }
 
   _saveFunko() {

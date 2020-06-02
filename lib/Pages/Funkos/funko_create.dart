@@ -179,9 +179,8 @@ class FormScreenState extends State<FormScreen> {
                 ),
                 color: Colors.deepPurpleAccent,
                 onPressed: () {
-                  _barscan();
-                  }
-                },
+                  _barScan();
+                }
               ),
               RaisedButton(
                 shape: RoundedRectangleBorder(
@@ -206,10 +205,6 @@ class FormScreenState extends State<FormScreen> {
       ),
     );
   }
-
-class _barscan {
-  
-}
 
   _saveFunko() {
     funkoService.createFunko(_name, _number, _upc, _sticker, _category, _brand, _image);

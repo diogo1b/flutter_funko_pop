@@ -2,7 +2,9 @@ import 'dart:io';
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
-
+import 'package:flutterfunkopop/models/funko.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class CloudStorageService {
   Future<String> uploadImage({
@@ -25,27 +27,7 @@ class CloudStorageService {
     return null;
   }
 
-  Future<void> readText(_image) async {
-
-    /*
-    FirebaseVisionImage ourImage = FirebaseVisionImage.fromFile(_image);
-    TextRecognizer recognizeText = FirebaseVision.instance.textRecognizer();
-    VisionText readText = await recognizeText.processImage(ourImage);
-    */
-
-    
-
-    /*
-    for(TextBlock block in readText.blocks) {
-        for(TextLine line in block.lines) {
-          for(TextElement word in line.elements) {
-            print(word.text);
-          }
-        }
-    }
-    */
-
-
+  Future<Funko> readText(_image) async {
     FirebaseVisionImage visionImage = FirebaseVisionImage.fromFile(_image);
     final BarcodeDetector barcodeDetector = FirebaseVision.instance.barcodeDetector();
     final List<Barcode> barcodes = await barcodeDetector.detectInImage(visionImage);
@@ -53,5 +35,37 @@ class CloudStorageService {
     var upc = barcodes[0].rawValue;
 
     print(upc);
+
+    String url = "https://api.barcodespider.com/v1/lookup?upc=889698430258" + upc.toString();
+
+    Map<String, String> headers = {
+      "token" : "b4d7691b233a9378c4bf",
+      "Host": "api.barcodespider.com",
+      "Accept-Encoding" : "gzip, deflate",
+      "Connection" : "keep-alive",
+      "cache-control" : "no-cache"
+    };
+
+    final response =
+    await http.get(url, headers: headers);
+    final responseJson = json.decode(response.body);
+
+    print(responseJson);
+
+    if(responseJson['item_response']["code"] == 200) {
+
+      var item = responseJson['item_attributes'];
+
+      String name = item["title"];
+      var index = name.indexOf(': ');
+      name = name.substring(1 , index);
+      print(name);
+
+      Funko funko = Funko("", name, "", item["upc"], "", item["category"], item["brand"] , "");
+      return funko;
+
+    } else {
+      return null;
+    }
   }
 }

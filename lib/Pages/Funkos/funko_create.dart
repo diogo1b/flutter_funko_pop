@@ -179,11 +179,8 @@ class FormScreenState extends State<FormScreen> {
                 ),
                 color: Colors.deepPurpleAccent,
                 onPressed: () {
-                  if (!_formKey.currentState.validate()) {
-                    return;
-                  }
-                  _barscan();
-                },
+                  _barScan();
+                }
               ),
               RaisedButton(
                 shape: RoundedRectangleBorder(
@@ -209,10 +206,6 @@ class FormScreenState extends State<FormScreen> {
     );
   }
 
-class _barscan {
-
-}
-
   _saveFunko() {
     funkoService.createFunko(_name, _number, _upc, _sticker, _category, _brand, _image);
     Fluttertoast.showToast(
@@ -236,14 +229,15 @@ class _barscan {
     });
   }
 
-  _BarScan() async {
+  _barScan() async {
     var file = await ImagePicker.pickImage(source: ImageSource.camera);
     var aux = await cloudStorageService.readText(file);
 
-    setState(() {
-      _image = _image;
-      
-    });
+    if(aux != null) {
+      setState(() {
+        _image = _image;
 
+      });
+    }
   }
 }

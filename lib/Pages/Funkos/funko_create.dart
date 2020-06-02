@@ -12,12 +12,12 @@ class FormScreen extends StatefulWidget {
 }
 
 class FormScreenState extends State<FormScreen> {
-  String _name = "";
-  String _number = "";
-  String _upc = "";
-  String _sticker = "";
-  String _category = "";
-  String _brand = "";
+  String _name;
+  String _number;
+  String _upc;
+  String _sticker;
+  String _category;
+  String _brand;
   String _image = "";
 
   final FunkoService funkoService = FunkoService();
@@ -26,7 +26,6 @@ class FormScreenState extends State<FormScreen> {
 
   Widget _buildName() {
     return TextFormField(
-      initialValue: _name,
       decoration: InputDecoration(labelText: 'Name'),
       maxLength: 30,
       validator: (String value) {

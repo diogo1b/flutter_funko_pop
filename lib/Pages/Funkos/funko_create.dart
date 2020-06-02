@@ -12,12 +12,12 @@ class FormScreen extends StatefulWidget {
 }
 
 class FormScreenState extends State<FormScreen> {
-  String _name;
-  String _number;
-  String _upc;
-  String _sticker;
-  String _category;
-  String _brand;
+  String _name = "";
+  String _number = "";
+  String _upc = "";
+  String _sticker = "";
+  String _category = "";
+  String _brand = "";
   String _image = "";
 
   final FunkoService funkoService = FunkoService();
@@ -26,6 +26,7 @@ class FormScreenState extends State<FormScreen> {
 
   Widget _buildName() {
     return TextFormField(
+      initialValue: _name,
       decoration: InputDecoration(labelText: 'Name'),
       maxLength: 30,
       validator: (String value) {
@@ -63,7 +64,7 @@ class FormScreenState extends State<FormScreen> {
   Widget _buildUpc() {
     return TextFormField(
       decoration: InputDecoration(labelText: 'UPC'),
-      maxLength: 10,
+      maxLength: 12,
       validator: (String value) {
         if (value.isEmpty) {
           return 'UPC is Required';
@@ -236,7 +237,10 @@ class FormScreenState extends State<FormScreen> {
     if(aux != null) {
       setState(() {
         _image = _image;
-
+        _name = aux.name;
+        _upc = aux.upc;
+        _category = aux.category;
+        _brand = aux.brand;
       });
     }
   }

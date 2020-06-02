@@ -36,7 +36,7 @@ class CloudStorageService {
 
     print(upc);
 
-    String url = "https://api.barcodespider.com/v1/lookup?upc=889698430258" + upc.toString();
+    String url = "https://api.barcodespider.com/v1/lookup?upc=" + upc.toString();
 
     Map<String, String> headers = {
       "token" : "b4d7691b233a9378c4bf",
@@ -57,8 +57,8 @@ class CloudStorageService {
       var item = responseJson['item_attributes'];
 
       String name = item["title"];
-      var index = name.indexOf(': ');
-      name = name.substring(1 , index);
+      var index = name.split(': ');
+      name = index[1];
       print(name);
 
       Funko funko = Funko("", name, "", item["upc"], "", item["category"], item["brand"] , "");

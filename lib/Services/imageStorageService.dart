@@ -33,9 +33,7 @@ class CloudStorageService {
     VisionText readText = await recognizeText.processImage(ourImage);
     */
 
-    FirebaseVisionImage visionImage = FirebaseVisionImage.fromFile(_image);
-    final BarcodeDetector barcodeDetector = FirebaseVision.instance.barcodeDetector();
-    final List<Barcode> barcodes = await barcodeDetector.detectInImage(visionImage);
+    
 
     /*
     for(TextBlock block in readText.blocks) {
@@ -47,8 +45,13 @@ class CloudStorageService {
     }
     */
 
-    for (Barcode barcode in barcodes) {
-      print(barcode.rawValue);
-    }
+
+    FirebaseVisionImage visionImage = FirebaseVisionImage.fromFile(_image);
+    final BarcodeDetector barcodeDetector = FirebaseVision.instance.barcodeDetector();
+    final List<Barcode> barcodes = await barcodeDetector.detectInImage(visionImage);
+
+    var upc = barcodes[0].rawValue;
+
+    print(upc);
   }
 }

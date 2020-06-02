@@ -215,14 +215,15 @@ class FormScreenState extends State<FormScreen> {
     });
   }
 
-  _BarScan() async {
+  _barScan() async {
     var file = await ImagePicker.pickImage(source: ImageSource.camera);
     var aux = await cloudStorageService.readText(file);
 
-    setState(() {
-      _image = _image;
-      
-    });
+    if(aux != null) {
+      setState(() {
+        _image = _image;
 
+      });
+    }
   }
 }

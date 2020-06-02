@@ -39,8 +39,11 @@ class CloudStorageService {
     String url = "https://api.barcodespider.com/v1/lookup?upc=889698430258" + upc.toString();
 
     Map<String, String> headers = {
-      'Content-type': 'application/json',
-      'Accept': 'application/json',
+      "token" : "b4d7691b233a9378c4bf",
+      "Host": "api.barcodespider.com",
+      "Accept-Encoding" : "gzip, deflate",
+      "Connection" : "keep-alive",
+      "cache-control" : "no-cache"
     };
 
     final response =
@@ -60,7 +63,7 @@ class CloudStorageService {
 
       Funko funko = Funko("", name, "", item["upc"], "", item["category"], item["brand"] , "");
       return funko;
-      
+
     } else {
       return null;
     }

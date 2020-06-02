@@ -168,6 +168,21 @@ class FormScreenState extends State<FormScreen> {
               _buildBrand(),
               _buildImage(),
               SizedBox(height: 15.0),
+
+              RaisedButton(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                child: Text(
+                  'Add Funko',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+                color: Colors.deepPurpleAccent,
+                onPressed: () {
+                  _barscan();
+                  }
+                },
+              ),
               RaisedButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0),
@@ -191,6 +206,10 @@ class FormScreenState extends State<FormScreen> {
       ),
     );
   }
+
+class _barscan {
+  
+}
 
   _saveFunko() {
     funkoService.createFunko(_name, _number, _upc, _sticker, _category, _brand, _image);

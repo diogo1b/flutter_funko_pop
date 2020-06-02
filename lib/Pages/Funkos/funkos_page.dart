@@ -176,7 +176,7 @@ class _FunkosPageState extends State<FunkosPage> {
   _showFunko(Funko funko) {
     Navigator.of(context)
         .push(MaterialPageRoute(
-      builder: (BuildContext context) => FunkoShowPage(funko),
+        builder: (BuildContext context) => FunkoShowPage(funko),
     ));
   }
 

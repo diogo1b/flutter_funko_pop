@@ -209,6 +209,11 @@ class FormScreenState extends State<FormScreen> {
   _selectImage() async {
     var file = await ImagePicker.pickImage(source: ImageSource.gallery);
     var _image_aux = await cloudStorageService.uploadImage(imageUpload: file, title: "funko");
+
+    var aux = await cloudStorageService.readText(file);
+
+    print("Despues de aux");
+
     setState(() {
       _image = _image_aux;
     });

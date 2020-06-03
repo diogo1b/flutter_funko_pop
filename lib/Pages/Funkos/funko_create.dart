@@ -20,7 +20,10 @@ class FormScreenState extends State<FormScreen> {
   String _brand;
   String _image = "";
 
-  var namecontroller = TextEditingController();
+  var nameController = TextEditingController();
+  var upcController = TextEditingController();
+  var categoryController = TextEditingController();
+  var brandController = TextEditingController();
 
   final FunkoService funkoService = FunkoService();
   final CloudStorageService cloudStorageService = CloudStorageService();
@@ -28,7 +31,7 @@ class FormScreenState extends State<FormScreen> {
 
   Widget _buildName() {
     return TextFormField(
-      controller: namecontroller,
+      controller: nameController,
       decoration: InputDecoration(labelText: 'Name'),
       maxLength: 30,
       validator: (String value) {
@@ -65,6 +68,7 @@ class FormScreenState extends State<FormScreen> {
 
   Widget _buildUpc() {
     return TextFormField(
+      controller: upcController,
       decoration: InputDecoration(labelText: 'UPC'),
       maxLength: 12,
       validator: (String value) {
@@ -99,6 +103,7 @@ class FormScreenState extends State<FormScreen> {
 
   Widget _buildCategory() {
     return TextFormField(
+      controller: categoryController,
       decoration: InputDecoration(labelText: 'Category'),
       maxLength: 30,
       validator: (String value) {
@@ -116,6 +121,7 @@ class FormScreenState extends State<FormScreen> {
 
   Widget _buildBrand() {
     return TextFormField(
+      controller: brandController,
       decoration: InputDecoration(labelText: 'Brand'),
       maxLength: 30,
       validator: (String value) {
@@ -239,10 +245,10 @@ class FormScreenState extends State<FormScreen> {
     if(aux != null) {
       setState(() {
         _image = _image;
-        namecontroller.text = aux.name;
-        _upc = aux.upc;
-        _category = aux.category;
-        _brand = aux.brand;
+        nameController.text = aux.name;
+        upcController.text = aux.upc;
+        categoryController.text = aux.category;
+        brandController.text = aux.brand;
       });
     }
   }

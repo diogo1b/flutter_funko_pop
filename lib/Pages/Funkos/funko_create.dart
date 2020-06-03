@@ -20,12 +20,15 @@ class FormScreenState extends State<FormScreen> {
   String _brand;
   String _image = "";
 
+  var namecontroller = TextEditingController();
+
   final FunkoService funkoService = FunkoService();
   final CloudStorageService cloudStorageService = CloudStorageService();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Widget _buildName() {
     return TextFormField(
+      controller: namecontroller,
       decoration: InputDecoration(labelText: 'Name'),
       maxLength: 30,
       validator: (String value) {
@@ -135,7 +138,7 @@ class FormScreenState extends State<FormScreen> {
         height: 250,
         decoration: BoxDecoration(
           color: Colors.grey[200],
-          borderRadius: BorderRadius.circular(10)),
+          borderRadius: BorderRadius.circular(12)),
         alignment: Alignment.center,
         child:
           _image == ""?
@@ -209,7 +212,7 @@ class FormScreenState extends State<FormScreen> {
   _saveFunko() {
     funkoService.createFunko(_name, _number, _upc, _sticker, _category, _brand, _image);
     Fluttertoast.showToast(
-        msg: "You hace created a new Funko!!!!!",
+        msg: "You have created a new Funko!!!!!",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
@@ -236,7 +239,7 @@ class FormScreenState extends State<FormScreen> {
     if(aux != null) {
       setState(() {
         _image = _image;
-        _name = aux.name;
+        namecontroller.text = aux.name;
         _upc = aux.upc;
         _category = aux.category;
         _brand = aux.brand;

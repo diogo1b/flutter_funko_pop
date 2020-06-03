@@ -33,7 +33,7 @@ class FormScreenState extends State<FormScreen> {
     return TextFormField(
       controller: nameController,
       decoration: InputDecoration(labelText: 'Name'),
-      maxLength: 30,
+      maxLength: 50,
       validator: (String value) {
         if (value.isEmpty) {
           return 'Name is Required';

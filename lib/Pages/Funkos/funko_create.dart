@@ -32,8 +32,8 @@ class FormScreenState extends State<FormScreen> {
   Widget _buildName() {
     return TextFormField(
       controller: nameController,
+      maxLength: 100,
       decoration: InputDecoration(labelText: 'Name'),
-      maxLength: 50,
       validator: (String value) {
         if (value.isEmpty) {
           return 'Name is Required';

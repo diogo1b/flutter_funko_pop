@@ -57,9 +57,9 @@ class CloudStorageService {
       var item = responseJson['item_attributes'];
 
       String name = item["title"];
-      var index = name.split(': ');
-      name = index[1];
-      print(name);
+      var index = name.split('! ');
+      /*name = index[0];
+      print(name);*/
 
       Funko funko = Funko("", name, "", item["upc"], "", item["category"], item["brand"] , "");
       return funko;
